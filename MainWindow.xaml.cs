@@ -108,13 +108,15 @@ public abstract class Cell
 
 public class Sand : Cell
 {
+    static Random r = new Random();    
+
     public Sand(int row, int col)
     {
 	this.row = row;
 	this.col = col;
         Grid.SetRow(rect, row);
         Grid.SetColumn(rect, col);
-        rect.Fill = System.Windows.Media.Brushes.Yellow;
+        rect.Fill = new SolidColorBrush(Color.FromArgb(255, (Byte)r.Next(230, 250), (Byte)r.Next(190, 210), (Byte)r.Next(100, 110)));;
     }
 
     public override void update()
