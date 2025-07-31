@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Threading;
 
 namespace Sand_Simulation_with_WPF;
 
@@ -53,7 +52,7 @@ public partial class MainWindow : Window
     		}
 	    }
 	    
-	    await Task.Delay(33);
+	    await Task.Delay(30);
 	}	
     }
 
@@ -66,8 +65,8 @@ public partial class MainWindow : Window
         if(System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed && nextCells[row, col] == null)
         {
 	    
-	    Sand sand = new Sand(row, col);
-	    nextCells[row, col] = sand;
+	    Water water = new Water(row, col);
+	    nextCells[row, col] = water;
 	    baseGrid.Children.Add(nextCells[row, col].rect);
         }
     }
@@ -104,61 +103,4 @@ public abstract class Cell
     public Rectangle rect = new Rectangle();
     public abstract void update();
     public int row, col;
-}
-
-public class Sand : Cell
-{
-    static Random r = new Random();    
-
-    public Sand(int row, int col)
-    {
-	this.row = row;
-	this.col = col;
-        Grid.SetRow(rect, row);
-        Grid.SetColumn(rect, col);
-        rect.Fill = new SolidColorBrush(Color.FromArgb(255, (Byte)r.Next(230, 250), (Byte)r.Next(190, 210), (Byte)r.Next(100, 110)));;
-    }
-
-    public override void update()
-    {
-	if(row+1 >= MainWindow.cellHeightCount)
-	    return;
-
-	//Move down if nothing is under it
-        if(MainWindow.nextCells[row+1, col] == null)
-	{
-	    Grid.SetRow(rect, row+1);
-	    MainWindow.currentCells[row, col] = null;
-	    MainWindow.nextCells[row+1, col] = this;
-	    MainWindow.nextCells[row, col] = null;
-	    row++;
-	    return;
-	}
-	
-	//Move right-down if nothing is there
-	if(col+1 < MainWindow.cellWidthCount && MainWindow.nextCells[row+1, col+1] == null)
-	{
-	    Grid.SetRow(rect, row+1);
-	    Grid.SetColumn(rect, col+1);
-	    MainWindow.currentCells[row, col] = null;
-	    MainWindow.nextCells[row+1, col+1] = this;
-	    MainWindow.nextCells[row, col] = null;
-	    row++;
-	    col++;
-	    return;
-	}
-
-	//Move left-down if nothing is there
-	if(col-1 >= 0 && MainWindow.nextCells[row+1, col-1] == null) 
-	{
-	    Grid.SetRow(rect, row+1);
-	    Grid.SetColumn(rect, col-1);
-	    MainWindow.currentCells[row, col] = null;
-	    MainWindow.nextCells[row+1, col-1] = this;
-	    MainWindow.nextCells[row, col] = null;
-	    row++;
-	    col--;
-	    return;
-	}
-    }
 }
