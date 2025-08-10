@@ -17,17 +17,21 @@ public class Water : Cell
 {
 	static Random r = new Random();
 	bool movingRight = true;
+	public static int colorUpdateCounter;
 
 	public Water(int row, int col)
 	{
 		this.row = row;
 		this.col = col;
 		Grid.SetRow(rect, row);
-		Grid.SetColumn(rect, col);
+		Grid.SetColumn(rect, col);	
 		rect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, (Byte)r.Next(200, 255)));
 	}
 	public override void update()
 	{
+		if(colorUpdateCounter == 2)
+			rect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, (Byte)r.Next(200, 255)));
+		
 		if(row+1 < MainWindow.cellHeightCount)
 		{
 			if(MainWindow.nextCells[row+1, col] == null)

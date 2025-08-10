@@ -43,7 +43,12 @@ public partial class MainWindow : Window
 
 		cell.update();
 	    }
-	   
+
+	    if(Water.colorUpdateCounter < 2)
+	        Water.colorUpdateCounter++;
+	    else
+		Water.colorUpdateCounter = 0;
+
 	    for (int i = 0; i < cellHeightCount; i++)
 	    {
     		for (int j = 0; j < cellWidthCount; j++)
