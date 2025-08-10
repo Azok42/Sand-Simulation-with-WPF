@@ -77,7 +77,6 @@ public class Water : Cell
 		else 
 		{
 			movingRight = false;
-			return;
 		}
 
 		if(!movingRight && col-1 >= 0 && MainWindow.nextCells[row, col-1] == null)
@@ -92,7 +91,6 @@ public class Water : Cell
 		else 
 		{
 			movingRight = true;
-			return;
 		}
 	}
 }
