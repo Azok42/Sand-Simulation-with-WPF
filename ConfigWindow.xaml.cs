@@ -19,4 +19,9 @@ public partial class ConfigWindow : Window
     	{
         	InitializeComponent();
 	}
+
+	public void ChangeCellBrush(object sender, RoutedEventArgs e)
+	{
+		MainWindow.cellBrush = ((Button)sender).Content.ToString();
+	}
 }

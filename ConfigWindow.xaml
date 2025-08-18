@@ -6,5 +6,35 @@
         xmlns:local="clr-namespace:Sand_Simulation_with_WPF"
         mc:Ignorable="d"
         Title="Configuration"
-	Height="800" Width="450">
+	Height="650" Width="450">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.15*"/>
+			<RowDefinition Height="0.2*"/>
+			<RowDefinition Height="0.65*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="0.3*"/>
+			<ColumnDefinition Width="0.3*"/>
+			<ColumnDefinition Width="0.3*"/>
+		</Grid.ColumnDefinitions>
+		
+
+		<TextBlock FontSize="30" FontWeight="Bold"
+			   HorizontalAlignment="Center"
+			   VerticalAlignment="Center"
+			   Grid.Row="0" Grid.Column="1">
+			Cells
+		</TextBlock>
+
+		<Button Content="Sand" Background="Yellow"
+			Grid.Row="1" Grid.Column="0"
+			Margin="20"
+			Click="ChangeCellBrush"/>
+		<Button Content="Water" Background="BLue" 
+			Grid.Row="1" Grid.Column="1"
+			Margin="20"
+			Click="ChangeCellBrush"/>
+	</Grid>
 </Window>

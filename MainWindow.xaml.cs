@@ -23,12 +23,18 @@ public partial class MainWindow : Window
     public static Grid baseGrid = new Grid();
     public static Cell[,] currentCells = new Cell[cellHeightCount, cellWidthCount];
     public static Cell[,] nextCells = new Cell[cellHeightCount, cellWidthCount];
+    public static string cellBrush = "Sand";
 
+    ConfigWindow configWindow = new ConfigWindow();
+    
     public MainWindow()
     {
         InitializeComponent();
 	
         genGrid();
+	
+	configWindow.Show();
+
 	mainLoop();
     }
 
@@ -66,12 +72,28 @@ public partial class MainWindow : Window
         Rectangle rect = (Rectangle)sender;
 	int row = Grid.GetRow(rect);
 	int col = Grid.GetColumn(rect);
-	
+	Cell cell;
+
         if(System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed && nextCells[row, col] == null)
         {
-	    
-	    Water water = new Water(row, col);
-	    nextCells[row, col] = water;
+	    switch(cellBrush)
+	    {
+	        case "Sand":
+		    cell = new Sand(row, col);
+		    break;
+		case "Water":
+		    cell = new Water(row, col);
+		    break;
+		default:
+		    cell = null;
+		    break;
+	    }
+
+	    nextCells[row, col] = cell;
+
+	    if(cell == null)
+		return;
+
 	    baseGrid.Children.Add(nextCells[row, col].rect);
         }
     }
